@@ -37,7 +37,10 @@ OnSystemLoad.PluginInit
 OnMenuExec
 {
 	_money = fnc.money()
-	_s = "\0\_q\b[2]【所持金】: %(_money) UNYU\n\n"
+	_color_total = 'default'
+	if _money < 0
+		_color_total = 'red'
+	_s = "\0\_q\b[2]【所持金】: \f[color,%(_color_total)]%(_money)\f[color,default] UNYU\n\n"
 	_n = ARRAYSIZE(trading)
 	for _i = _n - 1; _i >= _n - 10 && _i >= 0; _i-- {
 		_t = trading[_i]
@@ -46,14 +49,23 @@ OnMenuExec
 		_a = GETTIME(TOINT(_t[2,T_DLM]))
 		_datetime = AYATEMPLATE.SNTPCompare_StrForm("%(_a[0]),%(_a[1]),%(_a[2]),%(_a[4]),%(_a[5]),%(_a[6])")
 		_message = PLUGINFW.EscapeAllTags(_t[3,T_DLM])
-		_s += "%(_amount) UNYU, \f[color,gray]%(_datetime)\f[color,default]\nby %(_sender): %(_message)\n"
+		_color_money = 'default'
+		_plus = ''
+		if _amount > 0 {
+			_plus = '+'
+			_color_money = 'green'
+		}
+		elseif _amount < 0 {
+			_color_money = 'red'
+		}
+		_s += "\f[color,%(_color_money)]%(_plus)%(_amount)\f[color,default] UNYU, \f[color,gray]%(_datetime)\f[color,default]\nby %(_sender): %(_message)\n"
 	}
 	_s
 	res_event = 'OnWalletOfUnyu'
 	res_reference[0] = 'menu'
 	res_reference[1] = _money
 	res_script_option = 'notranslate'
-	res_marker = version
+	res_marker = version()
 }
 
 fnc.money
