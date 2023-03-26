@@ -279,7 +279,9 @@ OnRequest
 			// GETリクエスト
 			_result = PLUGINFW.RaiseIDEvent()
 			if _result == '' {
-				PLUGINFW.MakeEmptyResponse(PLUGINFW.Eventid)
+				"PLUGIN/2.0 204 No Content%(C_CRLF)Charset: %(S_CHARSET)%(C_CRLF)"
+				--
+				PLUGINFW.AssembleOptionalHeader()
 			}
 			else {
 				"PLUGIN/2.0 200 OK%(C_CRLF)Sender: AYA%(C_CRLF)Charset: %(S_CHARSET)%(C_CRLF)"
