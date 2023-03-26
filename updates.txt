@@ -8,4 +8,4 @@ file,system/yaya_plugin2.dicdc299219f0600becab2af6d5b2463142size=20721date=20
 file,system_config.txtaa1b07335eb2108b20641bfbb4ab6e36size=606date=2012-12-21T00:00:00
 file,yaya.dll56e3af56c88e696cea1f39d53b239cefsize=880640date=2012-12-21T00:00:00
 file,yaya.txt0f8dc065aa87aac65f55e7600ae6c4a1size=2316date=2012-12-21T00:00:00
-file,yaya_plugin_main.txt29f2c683c5bdbf51a64605c453eb713esize=3561date=2012-12-21T00:00:00
+file,yaya_plugin_main.txtaa5e0ac6dfa0f3f5a8dab87b837ceb00size=3874date=2012-12-21T00:00:00
