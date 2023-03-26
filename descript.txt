@@ -1,0 +1,10 @@
+charset,UTF-8
+type,plugin
+name,Wallet of Unyu
+id,c58b6320-caf8-11ed-a901-0800200c9a66
+filename,yaya.dll
+craftman,Don
+craftmanurl,https://nikolat.github.io/
+homeurl,https://raw.githubusercontent.com/nikolat/wallet_of_unyu/main/
+secondchangeinterval,0
+readme.charset,UTF-8

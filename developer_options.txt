@@ -1,0 +1,10 @@
+.git\,noupdate,nonar
+.gitignore,noupdate,nonar
+updates.txt,noupdate,nonar
+updates2.dau,noupdate,nonar
+developer_options.txt,noupdate,nonar
+profile\,noupdate,nonar
+tama.exe,noupdate,nonar
+tama.txt,noupdate,nonar
+yaya_variable.cfg,noupdate,nonar
+md5buildignore.txt,noupdate,nonar

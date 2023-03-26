@@ -1,0 +1,4 @@
+charset,UTF-8
+type,plugin
+name,Wallet of Unyu
+directory,wallet_of_unyu

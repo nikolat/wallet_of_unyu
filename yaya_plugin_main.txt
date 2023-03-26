@@ -1,0 +1,125 @@
+// ****使い方****
+// 
+// 関数名はイベント名そのままです。SHIORI/3.0テンプレートのように、
+// 文字列取得時頭にOn_がつくようなことはありません。
+// 
+// 値を返すとその内容をSakuraScriptとして実行します
+// 以下の変数に代入すると、動作を制御できます。
+//
+//   res_event , res_reference[0]...[n]
+//     指定したイベントをReferenceつきで発生します。referenceは省略可
+//
+//   res_target
+//     スクリプトやイベントをどのゴーストに送るかを指定します。
+//     Sakura名を指定してください。また、__SYSTEM_ALL_GHOST__で全起動中ゴーストに通知します。
+//     省略すると「プラグインメニューを実行したゴースト」に送ります
+//
+//   res_marker
+//     バルーンのマーカー(下に小さく出るステータス表示)に表示する文字を指定できます。
+//
+//   res_event_option / res_script_option
+//     それぞれ、EventOption / ScriptOptionヘッダを設定します。
+//
+// 詳しくはプラグイン仕様書を参照してください。
+// http://ssp.shillest.net/ukadoc/manual/spec_plugin.html
+// 
+#define	T_DLM	CHR(1)
+
+OnSystemLoad.PluginInit
+{
+	if !ISVAR('trading') {
+		trading = IARRAY()
+	}
+}
+
+//-------------------------------------------------------
+// ゴーストからアクセスできるイベント
+OnMenuExec
+{
+	_money = fnc.money()
+	_s = "\0\_q\b[2]【所持金】: %(_money) UNYU\n\n"
+	_n = ARRAYSIZE(trading)
+	for _i = _n - 1; _i >= _n - 10 && _i >= 0; _i-- {
+		_t = trading[_i]
+		_amount = TOINT(_t[0,T_DLM])
+		_sender = PLUGINFW.EscapeAllTags(_t[1,T_DLM])
+		_a = GETTIME(TOINT(_t[2,T_DLM]))
+		_datetime = AYATEMPLATE.SNTPCompare_StrForm("%(_a[0]),%(_a[1]),%(_a[2]),%(_a[4]),%(_a[5]),%(_a[6])")
+		_message = PLUGINFW.EscapeAllTags(_t[3,T_DLM])
+		_s += "%(_amount) UNYU, \f[color,gray]%(_datetime)\f[color,default]\nby %(_sender): %(_message)\n"
+	}
+	_s
+	res_event = 'OnWalletOfUnyu'
+	res_reference[0] = 'menu'
+	res_reference[1] = _money
+	res_script_option = 'notranslate'
+	res_marker = version
+}
+
+fnc.money
+{
+	_r = 0
+	foreach trading; _t {
+		_r += TOINT(_t[0,T_DLM])
+	}
+	_r
+}
+
+OnWalletOfUnyu
+{
+	case reference[0] {
+		when 'set' {
+			_amount = TOINT(reference[1])
+			_sender = sender
+			_unixtime = GETSECCOUNT()
+			_message = reference[2]
+			trading ,= JOIN((_amount, _sender, _unixtime, _message), T_DLM)
+		}
+		when 'get' {
+			//所持金を返すだけ
+		}
+		when 'menu' {
+			OnMenuExec()
+			return
+		}
+	}
+	res_event = 'OnWalletOfUnyu'
+	res_reference[0] = reference[0]
+	res_reference[1] = fnc.money()
+}
+
+AYATEMPLATE.SNTPCompare_StrForm
+{
+	_txt = SPLIT(_argv[0],',')
+	STRFORM("$04d-$02d-$02d $02d:$02d:$02d"/
+		,TOINT(_txt[0])/
+		,TOINT(_txt[1])/
+		,TOINT(_txt[2])/
+		,TOINT(_txt[3])/
+		,TOINT(_txt[4])/
+		,TOINT(_txt[5])/
+	)
+}
+
+//------------------------------------------------------------------------------
+//　関数名：PLUGINFW.EscapeAllTags
+//　機能　：全てのさくらスクリプトタグをエスケープ（\付加）する。
+//　引数　：argv0＝テキスト
+//------------------------------------------------------------------------------
+PLUGINFW.EscapeAllTags{
+	_txt=_argv[0]
+	_txt=REPLACE(_txt,'\\',ESCAPE_TAG_1)
+	_txt=REPLACE(_txt,'\%',ESCAPE_TAG_2)
+	_txt=REPLACE(_txt,'\','\\')
+	_txt=REPLACE(_txt,'%','\%')
+	_txt=REPLACE(_txt,ESCAPE_TAG_2,'\%')
+	_txt=REPLACE(_txt,ESCAPE_TAG_1,'\\')
+	_txt
+}
+
+//-------------------------------------------------------
+// バージョン
+version
+{
+	'WalletOfUnyu/1.0'
+}
