@@ -244,8 +244,8 @@ request
 			sender = _value
 		}
 
-		//Externalなら204で返る
-		if PLUGINFW.SecurityLevel == 'External' {
+		//externalなら204で返る
+		if PLUGINFW.SecurityLevel == 'external' {
 			PLUGINFW.MakeEmptyResponse()
 			--
 			C_CRLF
