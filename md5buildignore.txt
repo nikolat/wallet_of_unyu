@@ -23,5 +23,6 @@ XtraStuf.mac/
 
 /developer_options.txt
 /md5buildignore.txt
+docs/
 
 *.log

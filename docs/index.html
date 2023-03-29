@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Get Money</title>
+<script>
+"use strict";
+const sspServerURL = 'http://localhost:9801';
+async function getMoney(amount) {
+	const mes = ['NOTIFY SSTP/1.1'
+		,'Charset: UTF-8'
+		,'Sender: GetMoneySample'
+		,'SecurityLevel: local'
+		,'Event: OnGetMoneySample'
+		,'Option: nobreak'
+		,`ID: ${await getID()}`
+		,`Script: \\![raiseplugin,c58b6320-caf8-11ed-a901-0800200c9a66,OnWalletOfUnyu,set,${amount},Thanks for clicking!]\\e`
+		,''].join('\n');
+	const res = await postData(sspServerURL + '/api/sstp/v1', mes);
+	console.log(mes, '\n----------\n', res, '\n----------\n');
+};
+async function getID() {
+	const mes = ['EXECUTE SSTP/1.1'
+		,'Charset: UTF-8'
+		,'SecurityLevel: local'
+		,'Command: GetFMO'
+		,''].join('\n');
+	const res = await postData(sspServerURL + '/api/sstp/v1', mes);
+	console.log(mes, '\n----------\n', res, '\n----------\n');
+	const lines = res.split('\r\n');
+	for (let i = 0; i < lines.length; i++) {
+		if (lines[i].indexOf('.hwnd' + String.fromCharCode(1)) >= 0) {
+			return lines[i].split('.hwnd' + String.fromCharCode(1))[0];
+		}
+	}
+	return '';
+};
+async function postData(url = '', data = '') {
+	const param = {
+		method: 'POST',
+		headers: {
+			'Content-Type': 'text/plain',
+			'Origin': sspServerURL
+		},
+		body: data
+	};
+	try {
+		const response = await fetch(url, param);
+		return response.text()
+	} catch (error) {
+		console.log(error);
+		return '';
+	}
+};
+</script>
+</head>
+<body>
+	<h1>Get Money</h1>
+	<button onclick="getMoney(1);">GET 1 UNYU</button>
+	<h2>Download Wallet Plugin</h2>
+	<ul>
+		<li><a href="https://github.com/nikolat/wallet_of_unyu">GitHub</a> / <a href="https://github.com/nikolat/wallet_of_unyu/releases">Releases</a></li>
+	</ul>
+</body>
+</html>
