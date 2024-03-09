@@ -3,9 +3,9 @@ file,LICENSE65d3616852dbf7b1a6d4b53b00626032size=7048date=2012-12-21T00:00:00
 file,delete.txt09579480e6e815f08f5bcfad9243a21esize=22date=2012-12-21T00:00:00
 file,descript.txtde39ac3a9122109519cc8dd6f5bfe528size=271date=2012-12-21T00:00:00
 file,install.txtbb8c1dd3d07bf6390b04d447ced8aecfsize=71date=2012-12-21T00:00:00
-file,readme.txt81f42bd0d9715091d9ca2e6e3ef549afsize=1884date=2012-12-21T00:00:00
+file,readme.txt9c13f784b51bdc5a63bf6a63458bd464size=1982date=2012-12-21T00:00:00
 file,system/yaya_plugin2.dicdc299219f0600becab2af6d5b2463142size=20721date=2012-12-21T00:00:00
 file,system_config.txtaa1b07335eb2108b20641bfbb4ab6e36size=606date=2012-12-21T00:00:00
 file,yaya.dll56e3af56c88e696cea1f39d53b239cefsize=880640date=2012-12-21T00:00:00
 file,yaya.txt0f8dc065aa87aac65f55e7600ae6c4a1size=2316date=2012-12-21T00:00:00
-file,yaya_plugin_main.txtaa5e0ac6dfa0f3f5a8dab87b837ceb00size=3874date=2012-12-21T00:00:00
+file,yaya_plugin_main.txt4c156851e00314e28d8294e2a1d6c1ffsize=3887date=2012-12-21T00:00:00
