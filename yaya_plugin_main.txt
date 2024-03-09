@@ -86,6 +86,7 @@ OnWalletOfUnyu
 			_unixtime = GETSECCOUNT()
 			_message = reference[2]
 			trading ,= JOIN((_amount, _sender, _unixtime, _message), T_DLM)
+			SAVEVAR()
 		}
 		when 'get' {
 			//所持金を返すだけ
@@ -133,5 +134,5 @@ PLUGINFW.EscapeAllTags{
 // バージョン
 version
 {
-	'WalletOfUnyu/1.0'
+	'WalletOfUnyu/1.1'
 }
