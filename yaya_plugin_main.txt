@@ -101,6 +101,16 @@ OnWalletOfUnyu
 	res_reference[1] = fnc.money()
 }
 
+property.get
+{
+	case reference[0] {
+		when 'amount' {
+			fnc.money()
+			return
+		}
+	}
+}
+
 AYATEMPLATE.SNTPCompare_StrForm
 {
 	_txt = SPLIT(_argv[0],',')
@@ -134,5 +144,5 @@ PLUGINFW.EscapeAllTags{
 // バージョン
 version
 {
-	'WalletOfUnyu/1.1'
+	'WalletOfUnyu/1.2'
 }
